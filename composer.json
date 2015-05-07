@@ -1,0 +1,17 @@
+{
+    "require": {
+        "php":">=5.4.0",
+        "silex/silex": "*",
+        "doctrine/orm": "*",
+        "dflydev/doctrine-orm-service-provider": "*",
+        "monolog/monolog": "*",
+        "nesbot/Carbon": "~1.6",
+	"phing/phing": ">=2.4.13"
+    },
+    "minimum-stability": "stable",
+    "autoload":{
+        "psr-0":{
+            "App":["src/","test/"]
+        }
+    }
+}
