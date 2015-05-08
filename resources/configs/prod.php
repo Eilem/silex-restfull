@@ -13,4 +13,5 @@ $app['db'] = array(
         'charset'   => 'utf8'
     )
 );
-$app["path_class"] = ROOT."/vendor/MyProject/src";
+$app["path_class"] = ROOT."/vendor/MyProject/src";// Load Business with Doctrine
+$app["path_controllers"] = ROOT."/src/App/Controllers/";

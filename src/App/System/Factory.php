@@ -1,59 +1,86 @@
 <?php
+
 namespace App\System;
 
 use Doctrine\ORM\EntityManager;
 use Silex\Application;
 
-class Factory{
-    
+class Factory
+{
+
     /**
-     * Instancia para Silex Application
+     * Instance of Silex Application
      * @var Silex\Application 
      */
     private static $app;
-    
+
     /**
-     * Define uma referencia para Silex Application
+     * Set Reference Instance Silex App
      * @param Silex\Application $app
      */
     public static function setApp(Application $app)
     {
         self::$app = $app;
     }
-    
+
     /**
-     * Obtem uma referencia para Silex Application
+     * Get Reference Instance Silex App
      * @return Silex\Application $app
      */
     public static function getApp()
     {
         return self::$app;
     }
-    
+
     /**
      * Instancia do EntityManager
      * @var \Doctrine\ORM\EntityManager
      */
     private static $entityManager;
-    
+
     /**
-     * Define a Instancia do EntityManager
+     * Set EntityManager
      * @param Doctrine\ORM\EntityManager $entityManager
      */
-    public static function setEntityManager(EntityManager $entityManager){
+    public static function setEntityManager(EntityManager $entityManager)
+    {
         self::$entityManager = $entityManager;
     }
-    
+
     /**
-     * Obtém a instancia do EntityManager
+     * Get Instance EM
      * @throws ErrorException
      * @return \Doctrine\ORM\EntityManager
      */
-    public static function getInstanciaEM(){
-        if(!(self::$entityManager instanceof EntityManager))
+    public static function getInstanciaEM()
+    {
+        if (!(self::$entityManager instanceof EntityManager))
         {
-            throw new \ErrorException("Definition missing entityManager!");            
+            throw new \ErrorException("Definition missing entityManager!");
         }
         return self::$entityManager;
     }
+
+    /**
+     * Get List Controllers Avaliables
+     * @return array
+     */
+    public static function getListControllers()
+    {
+        $Items = new DirectoryIterator($app["path_controllers"]);
+        $controllers = array();
+        foreach ($Items as $Item)
+        {
+            if ($Item->isFile() && !$Item->isDot())
+            {
+                if ($Item->getExtension() == "php")
+                {
+                    $controllers[] = $Item->getBasename(".php");
+                }
+            }
+        }
+        
+        return $controllers;
+    }
+
 }
